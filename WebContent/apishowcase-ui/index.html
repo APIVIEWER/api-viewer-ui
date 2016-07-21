@@ -30,7 +30,7 @@
 		style="border: solid 0px red; width: 30%; margin-left: 2%;"
 		class="pull-left">
 		
-		<div class="row" ng-repeat="definition in discoverydefinition">
+		<div class="row" ng-repeat="definition in apis">
 
 			<div class="panel panel-info">
 				<div class="panel-heading">
@@ -43,12 +43,12 @@
 						role="button">View Spec</a>
 					<button type="button" class="btn btn-info btn-xs pull-right"
 						data-toggle="collapse"
-						data-target="#{{definition.apiSwaggerDefinition.swaggerDefinitionServiceName}}">Show
+						data-target="#{{definition.id}}">Show
 						Resources</button>
 				</div>
 				<div class="panel-body">
 					<div
-						id="{{definition.apiSwaggerDefinition.swaggerDefinitionServiceName}}"
+						id="{{definition.id}}"
 						class="row collapse">
 						<div class="row" style="margin-left: 2%; color: grey;"
 							ng-repeat="swaggerDefinitionResource in definition.apiSwaggerDefinition.swaggerDefinitionResources">
