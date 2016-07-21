@@ -1,0 +1,46 @@
+<div id="addStandAloneAPIPanel">
+	<div id="addStandAloneAPITitle">
+		<button type="button" class="btn btn-primary btn-sm"
+			data-toggle="collapse" data-target="#addStandAloneAPIInputPanel"><span class="glyphicon glyphicon-plus"></button>
+		<span class="panel-title">Add StandAlone API detail</span>
+	</div>
+	<br />
+	<div id="addStandAloneAPIInputPanel" class="collapse">
+		<form class="form-inline" ng-submit="addStandAloneAPI()">
+			<div class="form-group">
+				<label for="apiName">API Name</label> 
+				<input type="text" size="15"
+					class="form-control" id="apiName" placeholder="Name" ng-model="addStandAloneAPIData.nickName" required>
+			</div>
+			
+			<div class="form-group">
+				<label for="apiDocLocation">API Doc Location</label> 
+				<input type="text" 
+					class="form-control" id="apiDocLocation" placeholder="http://000.000.000.000:xxxx/api-docs" ng-model="addStandAloneAPIData.apiDocLocation"required>
+			</div>
+			<button type="submit" class="btn btn-success">Add</button>
+		</form>
+	</div>
+</div>
+<br/>
+<div id="addedStandAloneAPI">
+	<div id="addedStandAloneAPITitle">
+		<button type="button" class="btn btn-primary btn-sm"
+			><span class="glyphicon glyphicon-check"></span></button>
+		<span class="panel-title">Existing StandAlone API details</span>
+	</div>
+	<br />
+	
+	<table class="table table-striped">
+		<th>#</th>
+		<th>Name</th>
+		<th>Api Doc Location</th>
+		<th>Status</th>
+		<tr ng-repeat="standaloneapi in standaloneAPIs.standAloneAPIs" ng-init="number = $index + 1">
+			<td>{{ number }}</td>
+			<td>{{ standaloneapi.nickName}}</td>
+			<td>{{ standaloneapi.apiDocLocation}} </td>
+			<td>up</td>
+		</tr>
+	</table>
+</div>

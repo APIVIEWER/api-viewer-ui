@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>API SHOWCASE</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+	integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+	crossorigin="anonymous">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="js/apiViewerApp.js"></script>
+</head>
+<body ng-app="apiViewer" ng-controller="apiViewerCtrl">
+	
+	<div ng-include src="'includes/header.html'"></div>
+	
+	<!-- <div id="addToApiShowCase">
+		<div ng-include src="'includes/addeurekainfo.html'" class="pull-left" style="border: solid 0px red; width: 45%; margin-left: 2%;"></div>
+		<div ng-include src="'includes/addstandaloneapiinfo.html'" class="pull-right" style="border: solid 0px red; width: 45%; margin-left: 2%;"></div>
+	</div> -->
+
+	<div id="middleContainerLeftWrapper"
+		style="border: solid 0px red; width: 30%; margin-left: 2%;"
+		class="pull-left">
+		
+		<div class="row" ng-repeat="definition in discoverydefinition">
+
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h5 class="panel-title">
+						<span class="glyphicon glyphicon-link"></span>
+						{{definition.apiSwaggerDefinition.swaggerDefinitionServiceName}}
+					</h5>
+					<a class="btn btn-warning btn-xs pull-right"
+						ng-href="../swagger-ui/dist/index.html?url={{ definition.deployedServiceSpecUrl}}"
+						role="button">View Spec</a>
+					<button type="button" class="btn btn-info btn-xs pull-right"
+						data-toggle="collapse"
+						data-target="#{{definition.apiSwaggerDefinition.swaggerDefinitionServiceName}}">Show
+						Resources</button>
+				</div>
+				<div class="panel-body">
+					<div
+						id="{{definition.apiSwaggerDefinition.swaggerDefinitionServiceName}}"
+						class="row collapse">
+						<div class="row" style="margin-left: 2%; color: grey;"
+							ng-repeat="swaggerDefinitionResource in definition.apiSwaggerDefinition.swaggerDefinitionResources">
+							<span class="glyphicon glyphicon-registration-mark"></span> {{
+							swaggerDefinitionResource }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
