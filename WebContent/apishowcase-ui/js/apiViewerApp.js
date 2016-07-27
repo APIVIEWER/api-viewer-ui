@@ -5,7 +5,6 @@
 
 		$http.get("http://localhost:8767/apis").success(function(response) {
 			$scope.apis = response;
-			console.log(response)
 		});
 
 		$scope.pingInfos = new Map();
@@ -21,7 +20,6 @@
 		}
 
 		$scope.getGitInfo = function(gitRepoName) {
-			console.log(gitRepoName);
 
 			if (null == $scope.gitInfos.get(gitRepoName)) {
 
