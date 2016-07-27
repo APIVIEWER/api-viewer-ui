@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>API SHOWCASE</title>
+<title>Platform Dashboard</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
 	integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
@@ -18,46 +18,111 @@
 <script src="js/apiViewerApp.js"></script>
 </head>
 <body ng-app="apiViewer" ng-controller="apiViewerCtrl">
-	
+
 	<div ng-include src="'includes/header.html'"></div>
-	
-	<!-- <div id="addToApiShowCase">
-		<div ng-include src="'includes/addeurekainfo.html'" class="pull-left" style="border: solid 0px red; width: 45%; margin-left: 2%;"></div>
-		<div ng-include src="'includes/addstandaloneapiinfo.html'" class="pull-right" style="border: solid 0px red; width: 45%; margin-left: 2%;"></div>
-	</div> -->
 
 	<div id="middleContainerLeftWrapper"
-		style="border: solid 0px red; width: 30%; margin-left: 2%;"
+		style="border: solid 0px red; width: 100%; margin-left: 2%;"
 		class="pull-left">
-		
+
 		<div class="row" ng-repeat="definition in apis">
 
-			<div class="panel panel-info">
+			<div class="panel panel-info pull-left" style="width: 35%">
 				<div class="panel-heading">
 					<h5 class="panel-title">
 						<span class="glyphicon glyphicon-link"></span>
-						{{definition.apiSwaggerDefinition.swaggerDefinitionServiceName}}
+						{{definition.apiDefinition.swaggerDefinitionServiceName}}
 					</h5>
-					<a class="btn btn-warning btn-xs pull-right"
+					<a class="btn btn-warning btn-xs pull-right" style="margin-left:1%;"
 						ng-href="../swagger-ui/dist/index.html?url={{ definition.deployedServiceSpecUrl}}"
 						role="button">View Spec</a>
 					<button type="button" class="btn btn-info btn-xs pull-right"
-						data-toggle="collapse"
-						data-target="#{{definition.id}}">Show
+						data-toggle="collapse" data-target="#{{definition.id}}">Show
 						Resources</button>
 				</div>
 				<div class="panel-body">
-					<div
-						id="{{definition.id}}"
-						class="row collapse">
+					<div id="{{definition.id}}" class="row collapse">
 						<div class="row" style="margin-left: 2%; color: grey;"
-							ng-repeat="swaggerDefinitionResource in definition.apiSwaggerDefinition.swaggerDefinitionResources">
+							ng-repeat="swaggerDefinitionResource in definition.apiDefinition.swaggerDefinitionResources">
 							<span class="glyphicon glyphicon-registration-mark"></span> {{
 							swaggerDefinitionResource }}
 						</div>
 					</div>
 				</div>
+
 			</div>
+
+			<div id="pingContainerWrapper"
+				style="width: 25%; border: solid 0px red; margin-left: 1%;"
+				class="pull-left">
+				<div class="pull-left" style="margin-top: 4%;">
+					<div class="pull-left">
+
+						<button
+							ng-click="getPingInfo(definition.deployedServiceUrl,definition.id)"
+							class="btn btn-success" data-toggle="collapse"
+							data-target="#{{definition.id + 'ping'}}">
+							<span class="glyphicon glyphicon-flash"></span>Ping
+						</button>
+					</div>
+				</div>
+				<div class="panel-info panel pull-left collapse"
+					id="{{definition.id + 'ping'}}" style="margin-left: 3%">
+					<div class="pull-right"
+						ng-if="pingInfos.get(definition.id) != null ">
+
+						<table class="table table-condensed"
+							id="{{definition.id + 'pingtable'}}">
+
+							<th>I.P</th>
+							<th>Version</th>
+							<th>Tag</th>
+							<th>Status</th>
+							<tr>
+								<td>{{pingInfos.get(definition.id).hostAddress}}</td>
+								<td>{{pingInfos.get(definition.id).version}}</td>
+								<td>{{pingInfos.get(definition.id).tag}}</td>
+								<td><span class="glyphicon glyphicon-ok-circle"></span></td>
+							</tr>
+						</table>
+					</div>
+					<div class="pull-right"
+						ng-if="pingInfos.get(definition.id) == null ">
+
+						<table class="table table-condensed"
+							id="{{definition.id + 'pingtable'}}">
+							<tr>Service Not Reachable</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div id="gitContainerWrapper"
+				style="width: 30%; border: solid 0px green; margin-left: 2%; margin-top:1%;"
+				class="pull-left">
+				<div class="pull-left">
+					<div class="pull-left">
+
+						<button
+							ng-click="getGitInfo(definition.gitRepoName)"
+							class="btn btn-info" data-toggle="collapse"
+							data-target="#{{definition.id + 'gittable'}}">
+							<span class="glyphicon glyphicon-tasks"></span> Git
+						</button>
+					</div>
+				</div>
+				<div class="panel panel-info pull-left collapse" id="{{definition.id + 'gittable'}}" style="margin-left: 2%;">
+					<table class="table table-condensed"
+						id="{{definition.id + 'gittable'}}">
+						<tr>
+							<td><a href="https://github.com/naviance/{{gitInfos.get(definition.gitRepoName).name}}" target="_blank">Git </a><span class="glyphicon glyphicon-folder-open"></span></td>
+							<td>Branches <span class="badge">{{gitInfos.get(definition.gitRepoName).branches}}</span></td>
+							<td>Total PRs <span class="badge">{{gitInfos.get(definition.gitRepoName).prs}}</span></td>
+						</tr>
+					</table>
+				</div>
+
+			</div>
+
 		</div>
 	</div>
 </body>

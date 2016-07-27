@@ -18,6 +18,12 @@
 				<input type="text" 
 					class="form-control" id="apiDocLocation" placeholder="http://000.000.000.000:xxxx/api-docs" ng-model="addStandAloneAPIData.apiDocLocation"required>
 			</div>
+			
+			<div class="form-group">
+				<label for="apiDocLocation">Git Repo Name</label> 
+				<input type="text" 
+					class="form-control" id="apiDocLocation" placeholder="XXX-XXX-XXX" ng-model="addStandAloneAPIData.gitRepoName"required>
+			</div>
 			<button type="submit" class="btn btn-success">Add</button>
 		</form>
 	</div>
@@ -35,12 +41,14 @@
 		<th>#</th>
 		<th>Name</th>
 		<th>Api Doc Location</th>
-		<th>Status</th>
+		<th>Git Repo Name</th>
+		
 		<tr ng-repeat="standaloneapi in standaloneAPIs.standAloneAPIs" ng-init="number = $index + 1">
 			<td>{{ number }}</td>
 			<td>{{ standaloneapi.nickName}}</td>
 			<td>{{ standaloneapi.apiDocLocation}} </td>
-			<td>up</td>
+			<td>{{standaloneapi.gitRepoName}} </td>
+		
 		</tr>
 	</table>
 </div>
